@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.InteropServices.JavaScript;
 using JobApplications.Classes;
@@ -25,7 +26,6 @@ public class CompanyViewModel : INotifyPropertyChanged
         {
             _companyName = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CompanyName)));
-            Console.WriteLine($"PROPERTY CHANGED {CompanyName}");
         }
     }
     public string? Email 
@@ -80,4 +80,5 @@ public class CompanyViewModel : INotifyPropertyChanged
         };
         DatabaseController.SaveNewJobApplication(company);
     }
+    
 }

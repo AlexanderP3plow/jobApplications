@@ -76,4 +76,26 @@ public static class DatabaseController
             throw;
         }
     }
+    public static async Task DeleteApplication(Company company)
+    {
+        try
+        { 
+            var db = new LiteDatabaseAsync(Paths.JobApplications);
+            var col = db.GetCollection<Company>("JobApplications");
+            if (await col.ExistsAsync(x => x.Id == company.Id))
+            {
+                await col.DeleteAsync(company.Id);
+                db.Dispose();
+            }
+            else
+            {
+                db.Dispose();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }

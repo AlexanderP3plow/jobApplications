@@ -13,7 +13,7 @@
     <Window.Resources>
         <converter:StatusToBrushConverter x:Key="StatusToBrushConverter"/>
     </Window.Resources>
-    <Grid>
+    <Grid KeyDown="DeleteGesture">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -33,11 +33,12 @@
                           Click="OpenNewJobApplicationView"></MenuItem>
             </MenuItem>
         </Menu>
-        <DataGrid 
+        <DataGrid
             x:DataType="vm:ApplicationsOverview"
             Grid.Column="0"
             Grid.Row="1"
             Grid.ColumnSpan="2"
+            x:Name="CompaniesDataGrid"
             Margin="20"
             ItemsSource="{x:Static vm:ApplicationsOverview.ApplicationOverview}"
             AutoGenerateColumns="False" 
@@ -73,6 +74,11 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete" Click="DeleteEntry"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
     </Grid>
 </Window>

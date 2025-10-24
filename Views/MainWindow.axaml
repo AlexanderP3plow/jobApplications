@@ -1,0 +1,78 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:JobApplications.Models"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:JobApplications.Converter"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="JobApplications.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="JobApplications"
+        Height="700"
+        Width="1100">
+    <Window.Resources>
+        <converter:StatusToBrushConverter x:Key="StatusToBrushConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Column="0"
+              Grid.Row="0"
+              Margin="0,5,0,0"
+              Padding="5"
+              BorderThickness="0,0,0,1"
+              BorderBrush="Silver">
+            <MenuItem Header="New">
+                <MenuItem Header="Job Application"
+                          Click="OpenNewJobApplicationView"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <DataGrid 
+            x:DataType="vm:ApplicationsOverview"
+            Grid.Column="0"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Margin="20"
+            ItemsSource="{x:Static vm:ApplicationsOverview.ApplicationOverview}"
+            AutoGenerateColumns="False" 
+            IsReadOnly="False" 
+            GridLinesVisibility="All"
+            BorderThickness="1" BorderBrush="Gray"
+            CanUserResizeColumns="True"
+            CellEditEnded="UpdateEntry">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Company"  Binding="{Binding CompanyName, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Contact" Binding="{Binding Contact, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Address" Binding="{Binding Address, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Job" Binding="{Binding Job, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}" IsReadOnly="True"/>
+                <DataGridTemplateColumn Header="Status">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                DropDownClosed="UpdateStatus" 
+                                ItemsSource="{x:Static vm:ApplicationsOverview.StatusOptions}"
+                                SelectedItem="{Binding Status, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}"
+                                                   Width="120"
+                                                   Padding="15,5,0,5"
+                                                   Background="{Binding Converter={StaticResource StatusToBrushConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

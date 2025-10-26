@@ -7,7 +7,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JobApplications.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="JobApplications"
+        Title=" "
+        FontSize="16"
         Height="700"
         Width="1100">
     <Window.Resources>
@@ -58,6 +59,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox
+                                HorizontalContentAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
                                 DropDownClosed="UpdateStatus" 
                                 ItemsSource="{x:Static vm:ApplicationsOverview.StatusOptions}"
                                 SelectedItem="{Binding Status, Mode=TwoWay}">
@@ -65,11 +68,19 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding}"
                                                    Width="120"
-                                                   Padding="15,5,0,5"
+                                                   Padding="15,5,10,5"
                                                    Background="{Binding Converter={StaticResource StatusToBrushConverter}}"/>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Interview">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center">
+                            </CheckBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

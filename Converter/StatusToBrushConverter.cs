@@ -12,7 +12,6 @@ public class StatusToBrushConverter : IValueConverter
         {
             "Active" => Brushes.Green,
             "Cancelled" => Brushes.Red,
-            _ => Brushes.White
         };
     }
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

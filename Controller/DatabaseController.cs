@@ -11,11 +11,20 @@ namespace JobApplications.Controller;
 
 public static class DatabaseController
 {
+    private static string GetDatabasePath()
+    {
+        #if DEBUG
+                return Paths.JobApplicationsDebug;
+        #else
+                return Paths.JobApplications;
+        #endif
+    }
+
     public static void SaveNewJobApplication(Company company)
     {
         try
         { 
-            var db = new LiteDatabase(Paths.JobApplications);
+            var db = new LiteDatabase(GetDatabasePath());
             var col = db.GetCollection<Company>("JobApplications");
             var maxId = col.FindAll()
                 .OrderByDescending(x => x.Id)
@@ -36,7 +45,7 @@ public static class DatabaseController
         ObservableCollection<Company> companies = new ObservableCollection<Company>();
         try
         { 
-            var db = new LiteDatabaseAsync(Paths.JobApplications);
+            var db = new LiteDatabaseAsync(GetDatabasePath());
             var col = db.GetCollection<Company>("JobApplications");
             var results = await col.FindAllAsync();
             foreach (var company in results)
@@ -57,7 +66,7 @@ public static class DatabaseController
     {
         try
         { 
-            var db = new LiteDatabaseAsync(Paths.JobApplications);
+            var db = new LiteDatabaseAsync(GetDatabasePath());
             var col = db.GetCollection<Company>("JobApplications");
             
             if (await col.ExistsAsync(x => x.Id == company.Id))
@@ -80,7 +89,7 @@ public static class DatabaseController
     {
         try
         { 
-            var db = new LiteDatabaseAsync(Paths.JobApplications);
+            var db = new LiteDatabaseAsync(GetDatabasePath());
             var col = db.GetCollection<Company>("JobApplications");
             if (await col.ExistsAsync(x => x.Id == company.Id))
             {

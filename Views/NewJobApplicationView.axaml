@@ -6,7 +6,8 @@
         x:DataType="vm:CompanyViewModel"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JobApplications.Views.NewJobApplicationView"
-        Title="NewJobApplicationView" Width="500" Height="250" CornerRadius="0,0,5,5" CanResize="False">
+        FontSize="16"
+        Title=" " Width="500" Height="250" CornerRadius="0,0,5,5" CanResize="False">
     <Window.DataContext>
         <vm:CompanyViewModel></vm:CompanyViewModel>
     </Window.DataContext>
